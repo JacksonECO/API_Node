@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JacksonECO/API_Node/issues"
   },
-  "homepage": "https://github.com/JacksonECO/API_Node#readme"
+  "homepage": "https://github.com/JacksonECO/API_Node#readme",
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
 }
