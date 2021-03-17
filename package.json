@@ -17,7 +17,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "standard --fix",
+      "npm standard --fix",
       "git add"
     ]
   },
