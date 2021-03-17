@@ -1,3 +1,3 @@
-function edff () {
-  return 5
+function edff(){
+  return 5;
 }
