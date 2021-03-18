@@ -22,7 +22,7 @@
   "lint-staged": {
     "*.js": [
       "standard --fix",
-      "jest --colors --passWithNoTests",
+      "jest --colors --passWithNoTests --findRelatedTests",
       "git add"
     ]
   },
