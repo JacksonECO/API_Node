@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch --silent --colors",
-    "test:staged": "jest --passWithNoTests --findRelatedTests --silent --noStackTrace",
-    "test:ci": "jest --coverage --silent --noStackTrace"
+    "test": "jest --silent --colors --passWithNoTests",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "jest",
+    "test:ci": "npm test -- --coverage --noStackTrace"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,7 @@
   "lint-staged": {
     "*.js": [
       "standard --fix",
-      "rpm run test:staged",
+      "jest --colors --passWithNoTests",
       "git add"
     ]
   },
