@@ -16,7 +16,9 @@ module.exports = class LoginRouter {
     if (!passoword) {
       return HttpResponse.badRequest('password')
     }
-    this.authUseCase.auth(email, passoword)
-    return HttpResponse.unauthorizedError()
+    const accessToken = this.authUseCase.auth(email, passoword)
+    if (!accessToken) {
+      return HttpResponse.unauthorizedError()
+    } return HttpResponse.ok()
   }
 }
