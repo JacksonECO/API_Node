@@ -23,4 +23,10 @@ describe('Email Validator', () => {
     const isEmailValid = sut.isValid('invalid_email@mail.com')
     expect(isEmailValid).toBe(false)
   })
+
+  test('Shold call validator with correct email', () => {
+    const sut = mekeSut()
+    sut.isValid('invalid_email@mail.com')
+    expect(validator.email).toBe('invalid_email@mail.com')
+  })
 })
