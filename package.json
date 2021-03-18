@@ -22,7 +22,7 @@
   "lint-staged": {
     "*.js": [
       "standard --fix",
-      "npm test:staged",
+      "npm run test:staged",
       "git add"
     ]
   },
