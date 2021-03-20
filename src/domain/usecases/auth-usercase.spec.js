@@ -179,9 +179,9 @@ describe('Auth UseCase', () => {
     expect(updateAccessTokenRepositorySpy.accessToken).toBe(tokenGeneratorSpy.accessToken)
   })
 
+  //
+  //
   // Tests Generalist
-  //
-  //
   //
   //
 
