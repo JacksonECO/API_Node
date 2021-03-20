@@ -68,21 +68,44 @@ const makeloadUserByEmailRepositoryWithError = () => {
   return new LoadUserByEmailRepositorySpy()
 }
 
+const makeUpdateAccessTokenRepository = () => {
+  class UpdateAccessTokenRepository {
+    async update (userId, accessToken) {
+      this.userId = userId
+      this.accessToken = accessToken
+    }
+  }
+  const updateAccessTokenRepository = new UpdateAccessTokenRepository()
+  return updateAccessTokenRepository
+}
+
+// const makeUpdateAccessTokenRepositoryWithError = () => {
+//   class UpdateAccessTokenRepository {
+//     async update () {
+//       throw new Error()
+//     }
+//   }
+//   return new UpdateAccessTokenRepository()
+// }
+
 const makeSut = () => {
   const encrypterSpy = makeEncrypter()
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
   const tokenGeneratorSpy = makeTokenGenerator()
+  const updateAccessTokenRepositorySpy = makeUpdateAccessTokenRepository()
 
   const sut = new AuthUseCase({
     loadUserByEmailRepository: loadUserByEmailRepositorySpy,
     encrypter: encrypterSpy,
-    tokenGenerator: tokenGeneratorSpy
+    tokenGenerator: tokenGeneratorSpy,
+    updateAccessTokenRepository: updateAccessTokenRepositorySpy
   })
   return {
     sut,
     loadUserByEmailRepositorySpy,
     encrypterSpy,
-    tokenGeneratorSpy
+    tokenGeneratorSpy,
+    updateAccessTokenRepositorySpy
   }
 }
 
@@ -148,7 +171,21 @@ describe('Auth UseCase', () => {
     expect(accessToken).toBeTruthy() // Deve ser algo que tenha valor
   })
 
-  test('Should thowr if invalid dependencies are provider', async () => {
+  test('Should call UpdateAccessToken with correct values', async () => {
+    const { sut, loadUserByEmailRepositorySpy, tokenGeneratorSpy, updateAccessTokenRepositorySpy } = makeSut()
+
+    await sut.auth('valid_email@mail.com', 'valid_passowrd')
+    expect(updateAccessTokenRepositorySpy.userId).toBe(loadUserByEmailRepositorySpy.user.id)
+    expect(updateAccessTokenRepositorySpy.accessToken).toBe(tokenGeneratorSpy.accessToken)
+  })
+
+  // Tests Generalist
+  //
+  //
+  //
+  //
+
+  test('Should thowr if invalid any dependencies are provider', async () => {
     const invalid = {}
     const loadUserByEmailRepository = makeLoadUserByEmailRepository()
     const encrypter = makeEncrypter()
