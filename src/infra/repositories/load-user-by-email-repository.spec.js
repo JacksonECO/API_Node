@@ -1,18 +1,6 @@
 const { MongoClient } = require('mongodb')
-const { connection } = require('mongoose')
-
+const LoadUserByEmailRepository = require('./load-user-by-email-repository.js')
 let client, db
-
-class LoadUserByEmailRepository {
-  constructor (userModel) {
-    this.userModel = userModel
-  }
-
-  async load (email) {
-    const user = await this.userModel.findOne({ email })
-    return user
-  }
-}
 
 const makeSut = () => {
   const userModel = db.collection('users')
@@ -36,7 +24,7 @@ describe('LoadUserByEmailRepository', () => {
   })
 
   afterAll(async () => {
-    await connection.close()
+    await client.close()
   })
 
   test('Should return null if no user is found', async () => {
@@ -47,10 +35,14 @@ describe('LoadUserByEmailRepository', () => {
 
   test('Should return an user if user is foud', async () => {
     const { sut, userModel } = makeSut()
-    userModel.insertOne({
-      email: 'valid_email@mail.com'
+    const fakeUser = await userModel.insertOne({
+      email: 'valid_email@mail.com',
+      name: 'any_name',
+      age: 50,
+      state: 'any_state',
+      password: 'hashed_password'
     })
     const user = await sut.load('valid_email@mail.com')
-    expect(user.email).toBe('valid_email@mail.com')
+    expect(user).toEqual(fakeUser.ops[0])
   })
 })
