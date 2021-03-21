@@ -8,8 +8,8 @@
     "jest": "jest --watch",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
-    "test:staged": "npm test -- --findRelatedTests --noStackTrace --coverage",
-    "test:ci": "npm test -- --coverage --noStackTrace"
+    "test:staged": "npm test -- --findRelatedTests --noStackTrace --coverage --silent",
+    "test:ci": "npm test -- --coverage --noStackTrace --silent"
   },
   "repository": {
     "type": "git",
