@@ -41,7 +41,10 @@ describe('LoadUserByEmailRepository', () => {
       password: 'hashed_password'
     })
     const user = await sut.load('valid_email@mail.com')
-    expect(user).toEqual(fakeUser.ops[0])
+    expect(user).toEqual({
+      _id: fakeUser.ops[0]._id,
+      password: fakeUser.ops[0].password
+    })
   })
 
   test('Should throw if no userModel is provaided', async () => {

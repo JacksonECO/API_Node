@@ -12,11 +12,11 @@ module.exports = class LoadUserByEmailRepository {
     const user = await this.userModel.findOne({
       email
     }
-    // , {
-    //   projection: {
-    //     password: 2
-    //   }
-    // }
+    , {
+      projection: {
+        password: 1
+      }
+    }
     )
     return user
   }
