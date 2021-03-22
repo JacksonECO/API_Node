@@ -6,9 +6,9 @@
   "scripts": {
     "test": "jest --noStackTrace --colors --passWithNoTests",
     "jest": "jest --watch",
-    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js --coverage",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
-    "test:staged": "npm test -- --findRelatedTests --noStackTrace --coverage --silent",
+    "test:staged": "npm test -- --findRelatedTests --noStackTrace --silent",
     "test:ci": "npm test -- --coverage --noStackTrace --silent"
   },
   "repository": {
