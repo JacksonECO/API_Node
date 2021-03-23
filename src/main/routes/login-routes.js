@@ -1,3 +1,5 @@
+const loginRouter = require('../composers/login-composer')
+
 module.exports = router => {
-  // router.post('api/login', (req, res) => { })
+  router.post('/login', loginRouter)
 }
