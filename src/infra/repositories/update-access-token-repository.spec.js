@@ -4,11 +4,7 @@ const mongoHelper = require('../helpers/mongo-helper.js')
 let db
 
 const makeSut = () => {
-  const userModel = db.collection('users')
-  const sut = new UpdateAccessTokenRepository(userModel)
-  return {
-    sut, userModel
-  }
+  return new UpdateAccessTokenRepository()
 }
 
 describe('UpdateAccessToken Repository', () => {
@@ -37,22 +33,15 @@ describe('UpdateAccessToken Repository', () => {
   })
 
   test('Should update the user with the given accessToken', async () => {
-    const { sut, userModel } = makeSut()
+    const sut = makeSut()
     await sut.update(fakeUserId, 'valid_token')
-    const updateFakeUser = await userModel.findOne({ _id: fakeUserId })
+    const updateFakeUser = await db.collection('users').findOne({ _id: fakeUserId })
 
     expect(updateFakeUser.accessToken).toBe('valid_token')
   })
 
-  test('Should throw if no userModel is provaided', async () => {
-    const sut = new UpdateAccessTokenRepository()
-    const promise = sut.update(fakeUserId, 'valid_token')
-
-    expect(promise).rejects.toThrow()
-  })
-
   test('Should throw if no prams are provaided', async () => {
-    const { sut } = makeSut()
+    const sut = makeSut()
 
     expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
     expect(sut.update(fakeUserId, null)).rejects.toThrow(new MissingParamError('accessToken'))
