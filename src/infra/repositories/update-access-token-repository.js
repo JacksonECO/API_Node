@@ -9,8 +9,8 @@ module.exports = class UpdateAccessTokenRepository {
     if (!accessToken) {
       throw new MissingParamError('accessToken')
     }
-    const db = await MomgoHelper.getDb()
-    await db.collection('users').updateOne({
+    const userModel = await MomgoHelper.getCollection('users')
+    await userModel.updateOne({
       _id: userId
     }, {
       $set: {
