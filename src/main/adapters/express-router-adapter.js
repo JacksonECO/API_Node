@@ -1,5 +1,5 @@
 module.exports = class ExpressRouterAdapter {
-  static adpter (router) {
+  static adapt (router) {
     return async (req, res) => {
       const httpRequest = {
         body: req.body

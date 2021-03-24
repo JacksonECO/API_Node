@@ -42,9 +42,9 @@ const makeEmailValidatorWithError = () => {
 
 const makeAuthUseCase = () => {
   class AuthUseCaseSpy {
-    async auth (email, passoword) {
+    async auth (email, password) {
       this.email = email
-      this.passoword = passoword
+      this.password = password
       return this.accessToken
     }
   }
@@ -67,7 +67,7 @@ describe('Login Router', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        passoword: 'any_password'
+        password: 'any_password'
       }
     }
     const httpResponse = await sut.route(httpRequest)
@@ -106,12 +106,12 @@ describe('Login Router', () => {
     const httpRequest = {
       body: {
         email: 'any_email@gmail.com',
-        passoword: 'any_password'
+        password: 'any_password'
       }
     }
     await sut.route(httpRequest)
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
-    expect(authUseCaseSpy.passoword).toBe(httpRequest.body.passoword)
+    expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
   })
 
   test('Should return 401 when invalid credential are provided', async () => {
@@ -120,7 +120,7 @@ describe('Login Router', () => {
     const httpRequest = {
       body: {
         email: 'invalid_email@gmail.com',
-        passoword: 'invalid_password'
+        password: 'invalid_password'
       }
     }
     const httpResponse = await sut.route(httpRequest)
@@ -133,7 +133,7 @@ describe('Login Router', () => {
     const httpRequest = {
       body: {
         email: 'valid_email@gmail.com',
-        passoword: 'valid_password'
+        password: 'valid_password'
       }
     }
     const httpResponse = await sut.route(httpRequest)
@@ -147,7 +147,7 @@ describe('Login Router', () => {
     const httpRequest = {
       body: {
         email: 'invalid_email@gmail.com',
-        passoword: 'any_password'
+        password: 'any_password'
       }
     }
     const httpResponse = await sut.route(httpRequest)
@@ -160,7 +160,7 @@ describe('Login Router', () => {
     const httpRequest = {
       body: {
         email: 'any_email@gmail.com',
-        passoword: 'any_password'
+        password: 'any_password'
       }
     }
     await sut.route(httpRequest)
@@ -192,7 +192,7 @@ describe('Login Router', () => {
       const httpRequest = {
         body: {
           email: 'any_email@gmail.com',
-          passoword: 'any_password'
+          password: 'any_password'
         }
       }
       const httpResponse = await sut.route(httpRequest)
@@ -221,7 +221,7 @@ describe('Login Router', () => {
       const httpRequest = {
         body: {
           email: 'any_email@gmail.com',
-          passoword: 'any_password'
+          password: 'any_password'
         }
       }
       const httpResponse = await sut.route(httpRequest)
